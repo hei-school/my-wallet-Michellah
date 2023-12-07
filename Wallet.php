@@ -1,6 +1,6 @@
 <?php
 
-class AccountSystem {
+class Wallet {
 
     private $balance = 0;
     private $transactionList = [];
@@ -89,6 +89,6 @@ class AccountSystem {
     }
 }
 
-new AccountSystem();
+new Wallet();
 
 ?>
