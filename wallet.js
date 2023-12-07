@@ -1,5 +1,5 @@
 let balance = 0;
-let payment_list = [];
+let transaction_list = [];
 let accounts = [];
 let isAuthentaficed = false;
 
@@ -36,7 +36,7 @@ function showBalance() {
 function addMoney(money) {
     if (isAuthentaficed) {
         balance += money
-        payment_list.push(money + "_addmoney")
+        transaction_list.push(money + "_addmoney")
         console.log('The new balance after add money is : ', balance);
     } else {
         console.log('Please create your account');
@@ -48,7 +48,7 @@ function takeOutMoney(money) {
     if(isAuthentaficed) {
         if (money <= balance) {
             balance -= money
-            payment_list.push(money + "_takeoutmoney")
+            transaction_list.push(money + "_takeoutmoney")
             console.log('The new balance after take out money is : ', balance);
         } else {
             console.log("The balance is insufficient ");
@@ -60,9 +60,9 @@ function takeOutMoney(money) {
 
 }
 
-function showPaymentList() {
+function showTransactionList() {
     if(isAuthentaficed) {
-        console.log("Liste", payment_list);
+        console.log("Liste", transaction_list);
     } else {
         console.log('Please create your account');
     }
@@ -75,4 +75,4 @@ showBalance();
 addMoney(10);
 takeOutMoney(2);
 takeOutMoney(5)
-showPaymentList();
+showTransactionList();
