@@ -1,78 +1,123 @@
 let balance = 0;
-let transaction_list = [];
-let accounts = [];
-let isAuthentaficed = false;
+let images = []; 
+let creditCards = [];
+let driverLicense = [];
+let cin = [];
+let visitingCard = [];
 
-function createAccount(username, password) {
-    const existingAccount = accounts.find(account => account.username === username);
-    if (existingAccount) {
-        console.log('Your account already exists');
-    } else {
-        accounts.push({ username, password })
-        console.log('Account created successfully!');
-    }
-}
-function login(username, password) {
-    
-    const foundAccount = accounts.find(account => account.username === username);
-
-    if (foundAccount) {
-        isAuthentaficed = true;
-        console.log('You are connected');
-    } else {
-        console.log('Please create your account');
-    }
-}
-
-function showBalance() {
-    if(isAuthentaficed) {
-        console.log('The balance is : ', balance);
-    } else {
-        console.log('Please create your account');
-    }
-    
-}
-
-function addMoney(money) {
-    if (isAuthentaficed) {
-        balance += money
-        transaction_list.push(money + "_addmoney")
+function addToWallet(object, type) {
+    if(type === 'money') {
+        balance += object;
         console.log('The new balance after add money is : ', balance);
+    } else if (type === 'image') {
+        images.push(object);
+        console.log("You've added an image to your wallet.");
+    } else if (type === 'credit-card') {
+        creditCards.push(object);
+        console.log("You've added credit card to your wallet.");
+    } else if (type === 'driver-license') {
+        driverLicense.push(object);
+        console.log("You've added driver's license to your wallet.");
+    } else if (type === 'CIN') {
+        cin.push(object);
+        console.log("You've added CIN to your wallet.");
+    } else if (type === 'visiting-card') {
+        visitingCard.push(object);
+        console.log("You've added vising card to your wallet.");
     } else {
-        console.log('Please create your account');
+        console.log("It doesn't fit in your wallet ");
     }
-
 }
 
-function takeOutMoney(money) {
-    if(isAuthentaficed) {
-        if (money <= balance) {
-            balance -= money
-            transaction_list.push(money + "_takeoutmoney")
-            console.log('The new balance after take out money is : ', balance);
+function removeFromWallet(object, type) {
+    if(type === 'money') {
+        if (balance >= object){
+            balance -= object;
+            console.log("You have withdrawn ",  object,"from your portfolio. Total amount:", balance);
         } else {
-            console.log("The balance is insufficient ");
+            console.log("You don't have enough money in your wallet!");
+        }
+       
+    } else if( type == 'image') {
+        if (images.includes(object)) {
+            let index = images.indexOf(object);
+            images.splice(index, 1);
+            console.log(`You have removed an image from your wallet.`);
+        } else {
+            console.log("The image does not exist in your wallet !");
+        }
+    } else if (type === 'credit-card') {
+        if (creditCards.includes(object)) {
+            let index = creditCards.indexOf(object);
+            creditCards.splice(index, 1);
+            console.log(`You have removed a credit card from your wallet`);
+        } else {
+            console.log("The credit card does not exist in your wallet !");
+        }
+    }  else if (type === 'driver-license') {
+        if (driverLicense.includes(object)) {
+            let index = driverLicense.indexOf(object);
+            driverLicense.splice(index, 1);
+            console.log(`You have removed a driver's license from your wallet`);
+        } else {
+            console.log("The driver's license does not exist in your wallet !");
+        }
+    } else if (type === 'visiting-card') {
+        if (visitingCard.includes(object)) {
+            let index = visitingCard.indexOf(object);
+            visitingCard.splice(index, 1);
+            console.log(`You have removed a visiting card from your wallet`);
+        } else {
+            console.log("The visiting card does not exist in your wallet !");
+        }
+    } else if (type === 'CIN') {
+        if (cin.includes(object)) {
+            let index = cin.indexOf(object);
+            cin.splice(index, 1);
+            console.log(`You have removed a cin from your wallet`);
+        } else {
+            console.log("The cin does not exist in your wallet !");
         }
     } else {
-        console.log('Please create your account');
+        console.log("Object type not supported!");
     }
-    
-
 }
 
-function showTransactionList() {
-    if(isAuthentaficed) {
-        console.log("Liste", transaction_list);
-    } else {
-        console.log('Please create your account');
+function lookIntoWallet() {
+    console.log("The content of wallet");
+    console.log("Money: ", balance);
+    console.log("Images: ");
+    for (let i = 0; i < images.length; i++) {
+        console.log(images[i]);
     }
-    
+    console.log("Credit cards: ");
+    for (let i = 0; i < creditCards.length; i++) {
+        console.log(creditCards[i]);
+    }
+
+    console.log("CIN: ");
+    for (let i = 0; i < cin.length; i++) {
+        console.log(cin[i]);
+    }
+
+    console.log("Driver's license: ");
+    for (let i = 0; i < driverLicense.length; i++) {
+        console.log(driverLicense[i]);
+    }
+
+    console.log("Visiting cards: ");
+    for (let i = 0; i < visitingCard.length; i++) {
+        console.log(visitingCard[i]);
+    }
 }
 
-createAccount('username','password')
-login('username', 'password')
-showBalance();
-addMoney(10);
-takeOutMoney(2);
-takeOutMoney(5)
-showTransactionList();
+addToWallet(50, 'money');
+addToWallet('image1.jpg', 'image');
+addToWallet('BNI card', 'credit-card');
+addToWallet('CIN1', 'CIN');
+addToWallet('Driver license 1', 'driver-license');
+addToWallet('Docteur', 'visiting-card');
+lookIntoWallet();
+removeFromWallet(20, 'money');
+lookIntoWallet();
+
