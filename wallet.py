@@ -1,66 +1,72 @@
 balance = 0
-payment_list = []
-accounts = []
-is_authenticated = False
+images = []
+credit_cards = []
+driver_license = []
+cin = []
+visiting_card = []
 
-def create_account(username, password):
-    global is_authenticated
-    existing_account = next((account for account in accounts if account['username'] == username), None)
-    if existing_account:
-        print('Your account already exists')
+def add_to_wallet(obj, type):
+    global balance, images, credit_cards, driver_license, cin, visiting_card
+    
+    if type == 'money':
+        balance += obj
+        print('The new balance after adding money is:', balance)
+    elif type == 'image':
+        images.append(obj)
+        print("You've added an image to your wallet.")
+    elif type == 'credit-card':
+        credit_cards.append(obj)
+        print("You've added a credit card to your wallet.")
+    elif type == 'driver-license':
+        driver_license.append(obj)
+        print("You've added a driver's license to your wallet.")
+    elif type == 'CIN':
+        cin.append(obj)
+        print("You've added a CIN to your wallet.")
+    elif type == 'visiting-card':
+        visiting_card.append(obj)
+        print("You've added a visiting card to your wallet.")
     else:
-        accounts.append({'username': username, 'password': password})
-        is_authenticated = True
-        print('Account created successfully!')
+        print("It doesn't fit in your wallet.")
 
-def login(username, password):
-    global is_authenticated
-    found_account = next((account for account in accounts if account['username'] == username), None)
-    if found_account:
-        is_authenticated = True
-        print('You are connected')
-    else:
-        print('Please create your account')
-
-def show_balance():
-    global is_authenticated, balance
-    if is_authenticated:
-        print('The balance is : ', balance)
-    else:
-        print('Please create your account')
-
-def add_money(money):
-    global is_authenticated, balance, payment_list
-    if is_authenticated:
-        balance += money
-        payment_list.append(str(money) + "_addmoney")
-        print('The new balance after add money is : ', balance)
-    else:
-        print('Please create your account')
-
-def take_out_money(money):
-    global is_authenticated, balance, payment_list
-    if is_authenticated:
-        if money <= balance:
-            balance -= money
-            payment_list.append(str(money) + "_takeoutmoney")
-            print('The new balance after take out money is : ', balance)
+def remove_from_wallet(obj, type):
+    global balance, images, credit_cards, driver_license, cin, visiting_card
+    
+    if type == 'money':
+        if balance >= obj:
+            balance -= obj
+            print("You have withdrawn", obj, "from your portfolio. Total amount:", balance)
         else:
-            print("The balance is insufficient ")
+            print("You don't have enough money in your wallet!")
     else:
-        print('Please create your account')
+        wallet = {
+            'image': images,
+            'credit-card': credit_cards,
+            'driver-license': driver_license,
+            'CIN': cin,
+            'visiting-card': visiting_card
+        }
+        if obj in wallet.get(type, []):
+            wallet[type].remove(obj)
+            print(f"You have removed a {type.replace('-', ' ')} from your wallet.")
+        else:
+            print(f"The {type.replace('-', ' ')} does not exist in your wallet!")
 
-def show_payment_list():
-    global is_authenticated, payment_list
-    if is_authenticated:
-        print("Liste", payment_list)
-    else:
-        print('Please create your account')
+def look_into_wallet():
+    print("The content of wallet")
+    print("Money:", balance)
+    print("Images:", images)
+    print("Credit cards:", credit_cards)
+    print("CIN:", cin)
+    print("Driver's license:", driver_license)
+    print("Visiting cards:", visiting_card)
 
-create_account('username', 'password')
-login('username', 'password')
-show_balance()
-add_money(10)
-take_out_money(2)
-take_out_money(5)
-show_payment_list()
+add_to_wallet(50, 'money')
+add_to_wallet('image1.jpg', 'image')
+add_to_wallet('BNI card', 'credit-card')
+add_to_wallet('CIN1', 'CIN')
+add_to_wallet('Driver license 1', 'driver-license')
+add_to_wallet('Doctor', 'visiting-card')
+look_into_wallet()
+remove_from_wallet(20, 'money')
+look_into_wallet()
