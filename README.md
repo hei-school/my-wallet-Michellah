@@ -5,17 +5,14 @@
 
 ## DESCRIPTION
 
-Wallet app can keep money, do some retirement too, look at the sum in the app and display the transaction list for that you need to log in or create an account.
+It's an app to simulate a real wallet. It's to better understand the conception of an application
 
-It's written in 4 different languages js, java , python and php
+## LANGUAGE USE
+It's written in 4 different languages:
+1. js: https://github.com/hei-school/my-wallet-Michellah/tree/feature/javascript
+2. java: https://github.com/hei-school/my-wallet-Michellah/tree/feature/java
+3. python: https://github.com/hei-school/my-wallet-Michellah/tree/feature/python
+4. php: https://github.com/hei-school/my-wallet-Michellah/tree/feature/php
 
-## FONCTIONALITIES
- 
-1. createAccount 
-2. login
-3. showBalance
-4. addMoney
-5. takeOutMoney
-6. showTransactionList
 
 
